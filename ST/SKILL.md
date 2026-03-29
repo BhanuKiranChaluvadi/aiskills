@@ -170,6 +170,10 @@ END_TYPE
 - Function blocks implement interfaces explicitly.
 - Depend on interfaces, not concrete function blocks, when a component needs to interact with interchangeable implementations.
 - Keep interfaces small and focused (interface segregation).
+- Use guard clauses when references are optional (`IF service <> 0 THEN ...`).
+- If and guard clause for reference contains more than one conditions, use keyword AND_THEN
+
+---
 
 ### Static allocation
 
@@ -183,6 +187,7 @@ END_TYPE
 - Prefer `REFERENCE TO` over `POINTER TO` for passing references between function blocks.
 - `REFERENCE TO` is safer: it cannot be null by default and has clearer semantics.
 -  A reference instanciated with `REFERENCE TO` can be checked with __ISVALIDREF() 
+- If and guard clause for reference contains more than one conditions, use keyword AND_THEN
 - `POINTER TO` is acceptable only for usage of libraries provided by third parties  and low-level library interop.
 - Always check `POINTER TO` for validity before dereferencing: use `__ISVALIDREF()` guard.
 - Never store a `POINTER TO` a local variable beyond the scope of the call.
@@ -195,6 +200,11 @@ END_TYPE
 - `VAR_INST`: static variables for functions and methods.
 - Never use `VAR_IN_OUT`.  `REFERENCE TO` replaces this section
 - Never use `VAR_OUTPUT`.  `REFERENCE TO` and `Property` replaces this section 
+
+---
+
+### Math and units
+- Use small epsilon thresholds for comparisons (`ABS(x) > 1E-6`).
 
 ---
 
@@ -294,6 +304,14 @@ END_TYPE
 - Initialization sequences are handled by a dedicated startup state machine or init coordinator, not scattered across `MAIN`.
 - I/O mapping is separated from logic. Map physical I/O to a dedicated I/O function block or GVL, then pass values into logic blocks via inputs.
 - HMI data exchange is separated from control logic. Use dedicated HMI interface structs or GVLs.
+
+---
+
+## File format and structure
+- PLC sources are stored as XML (`.TcPOU`, `.TcDUT`, `.TcIO`).
+- Do not change XML headers/encodings; keep the BOM/encoding intact.
+- Keep the `<Declaration>` and `<Implementation>` CDATA blocks intact.
+- Use `FUNCTION_BLOCK`, `METHOD`, and `PROPERTY` consistently.
 
 ---
 
