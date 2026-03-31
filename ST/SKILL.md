@@ -38,6 +38,7 @@ Apply this skill when:
 - No prefixes or postfixes on any name, except `I` for interfaces.
 - Names describe intent, not type or implementation detail.
 - Names must be clear and unambiguous without requiring context.
+- Methods that having a helper character which are often proteced or private method should have a "_" as prefix. 
 
 ### Capitalization
 
